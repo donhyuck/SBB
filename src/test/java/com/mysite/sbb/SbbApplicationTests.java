@@ -101,4 +101,22 @@ class SbbApplicationTests {
         questionRepository.save(q);
 
     }
+
+    @Test
+    void testDeleteSubject() {
+
+        // 질문 2개인지 확인
+        assertEquals(questionRepository.count(), 2);
+
+        // 질문 가져오기
+        Optional<Question> oq = questionRepository.findById(2);
+        assertTrue(oq.isPresent());
+        Question q = oq.get();
+
+        // 질문 삭제하기
+        questionRepository.delete(q);
+
+        // 1개가 되었는지 확인
+        assertEquals(questionRepository.count(), 1);
+    }
 }
