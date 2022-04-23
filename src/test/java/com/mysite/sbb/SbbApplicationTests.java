@@ -16,6 +16,9 @@ class SbbApplicationTests {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private AnswerRepository answerRepository;
+
     @Test
     void testCreateQuestion() {
 
@@ -123,5 +126,21 @@ class SbbApplicationTests {
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setCreateDate(LocalDateTime.now());
         this.questionRepository.save(q1);  // 저장
+    }
+
+    @Test
+    void testCreateAnswer() {
+
+        // 질문 가져오기
+        Optional<Question> oq = questionRepository.findById(2);
+        assertTrue(oq.isPresent());
+        Question q = oq.get();
+
+        // 답변 생성하기
+        Answer a1 = new Answer();
+        a1.setContent("네 자동으로 생성됩니다.");
+        a1.setCreateDate(LocalDateTime.now());
+        a1.setQuestion(q);
+        answerRepository.save(a1);  // 저장
     }
 }
