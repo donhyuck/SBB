@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 class SbbApplicationTests {
@@ -89,7 +88,7 @@ class SbbApplicationTests {
     }
 
     @Test
-    void testModifySubject() {
+    void testModifyQuestionSubject() {
 
         // 질문 가져오기
         Optional<Question> oq = questionRepository.findById(1);
@@ -103,20 +102,26 @@ class SbbApplicationTests {
     }
 
     @Test
-    void testDeleteSubject() {
+    void testRemoveQuestion() {
 
         // 질문 2개인지 확인
         assertEquals(questionRepository.count(), 2);
 
         // 질문 가져오기
-        Optional<Question> oq = questionRepository.findById(2);
-        assertTrue(oq.isPresent());
-        Question q = oq.get();
+        Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
+        assertNotNull(q);
 
         // 질문 삭제하기
         questionRepository.delete(q);
 
         // 1개가 되었는지 확인
         assertEquals(questionRepository.count(), 1);
+
+        // 테스트 후 질문 추가
+        Question q1 = new Question();
+        q1.setSubject("sbb가 무엇인가요?");
+        q1.setContent("sbb에 대해서 알고 싶습니다.");
+        q1.setCreateDate(LocalDateTime.now());
+        this.questionRepository.save(q1);  // 저장
     }
 }
