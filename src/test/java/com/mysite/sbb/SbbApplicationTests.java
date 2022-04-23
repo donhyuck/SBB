@@ -57,6 +57,23 @@ class SbbApplicationTests {
             Question q = oq.get();
             assertEquals("sbb가 무엇인가요?", q.getSubject());
         }
+    }
+
+    @Test
+    void testFindBySubject() {
+
+        // 질문으로 질문조회
+        Question q = questionRepository.findBySubject("sbb가 무엇인가요?");
+        assertEquals(q.getId(), 1);
+
+    }
+
+    @Test
+    void testFindBySubjectAndContent() {
+
+        // 질문과 내용으로 질문조회
+        Question q = questionRepository.findBySubjectAndContent("sbb가 무엇인가요?", "sbb에 대해서 알고 싶습니다.");
+        assertEquals(q.getId(), 1);
 
     }
 }
