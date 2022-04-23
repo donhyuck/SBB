@@ -143,4 +143,15 @@ class SbbApplicationTests {
         a1.setQuestion(q);
         answerRepository.save(a1);  // 저장
     }
+
+    @Test
+    void testQuestionFind() {
+
+        Optional<Answer> oa = answerRepository.findById(1);
+
+        // 답변 조회하기 1번 답변이 2번 질문에 대한 것인가 확인
+        assertTrue(oa.isPresent());
+        Answer a = oa.get();
+        assertEquals(2, a.getQuestion().getId());
+    }
 }
