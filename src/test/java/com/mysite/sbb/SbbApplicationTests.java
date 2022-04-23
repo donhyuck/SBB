@@ -1,5 +1,9 @@
 package com.mysite.sbb;
 
+import com.mysite.sbb.answer.Answer;
+import com.mysite.sbb.answer.AnswerRepository;
+import com.mysite.sbb.question.Question;
+import com.mysite.sbb.question.QuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -101,6 +105,10 @@ class SbbApplicationTests {
 
         // 질문 수정하기
         q.setSubject("What is the SBB?");
+        questionRepository.save(q);
+
+        // 질문 돌려놓기
+        q.setSubject("sbb가 무엇인가요?");
         questionRepository.save(q);
 
     }
