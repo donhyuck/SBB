@@ -3,6 +3,7 @@ package com.mysite.sbb.question;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,13 @@ public class QuestionService {
         } else {
             throw new DataNotFoundException("Question is not founded");
         }
+    }
+
+    public void create(String subject, String content) {
+        Question q = new Question();
+        q.setCreateDate(LocalDateTime.now());
+        q.setSubject(subject);
+        q.setContent(content);
+        questionRepository.save(q);
     }
 }
