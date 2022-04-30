@@ -17,9 +17,7 @@
 
     <!-- 답변 작성 -->
     <form class="my-3" th:action="@{|/answer/create/${question.id}|}" th:object="${answerForm}" method="post">
-        <div th:if="${#fields.hasAnyErrors()}" class="alert alert-danger" role="alert">
-            <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/>
-        </div>
+        <div th:replace="form_errors :: formErrorsFragment"></div>
         <textarea class="form-cotrol" th:field="*{content}" id="content" placeholder="답변을 작성해주세요."
                   rows="10"></textarea>
         <input class="btn btn-primary my-2" type="submit" value="답변등록">
