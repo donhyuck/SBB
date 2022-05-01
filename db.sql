@@ -31,3 +31,19 @@ CREATE TABLE site_user (
 );
 
 SELECT * FROM site_user;
+
+# 비밀번호 : sbs1234 => bcrypt 적용
+INSERT INTO site_user
+SET username = 'admin',
+`password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
+email = 'admin@test.com';
+
+INSERT INTO site_user
+SET username = 'user1',
+`password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
+email = 'user1@test.com';
+
+INSERT INTO site_user
+SET username = 'user2',
+`password` = '$2a$10$ECLIahn9UgeZxUxmca6HyeYTwOAspolhesV1qXFQNF5zyR20FfmB6',
+email = 'user2@test.com';
