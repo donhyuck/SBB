@@ -2,6 +2,8 @@ package com.mysite.sbb.answer;
 
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.user.SiteUser;
+import com.mysite.sbb.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,9 +19,11 @@ import javax.validation.Valid;
 public class AnswerController {
 
     @Autowired
-    QuestionService questionService;
+    private QuestionService questionService;
     @Autowired
-    AnswerService answerService;
+    private AnswerService answerService;
+    @Autowired
+    private UserService userService;
 
     @PostMapping(value = "/create/{id}")
     public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm, BindingResult bindingResult) {
@@ -31,7 +35,9 @@ public class AnswerController {
             return "question_detail";
         }
 
-        answerService.create(question, answerForm.getContent());
+        SiteUser author = userService.getUser(2); // 임시
+
+        answerService.create(question, answerForm.getContent(), author);
         return "redirect:/question/detail/%d".formatted(id);
     }
 }

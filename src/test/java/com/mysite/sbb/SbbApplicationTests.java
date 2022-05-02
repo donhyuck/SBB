@@ -5,6 +5,7 @@ import com.mysite.sbb.answer.AnswerRepository;
 import com.mysite.sbb.question.Question;
 import com.mysite.sbb.question.QuestionRepository;
 import com.mysite.sbb.question.QuestionService;
+import com.mysite.sbb.user.SiteUser;
 import com.mysite.sbb.user.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,14 @@ class SbbApplicationTests {
 
     @Test
     void testCreateQuestion() {
+        SiteUser author = userService.getUser(2);
 
         // 첫번째 질문
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setCreateDate(LocalDateTime.now());
+        q1.setAuthor(author);
         this.questionRepository.save(q1);  // 저장
 
         // 두번째 질문
@@ -47,6 +50,7 @@ class SbbApplicationTests {
         q2.setSubject("스프링부트 모델 질문입니다.");
         q2.setContent("id는 자동으로 생성되나요?");
         q2.setCreateDate(LocalDateTime.now());
+        q2.setAuthor(author);
         this.questionRepository.save(q2);  // 저장
     }
 
@@ -138,10 +142,13 @@ class SbbApplicationTests {
         assertEquals(questionRepository.count(), 1);
 
         // 테스트 후 질문 추가
+        SiteUser author = userService.getUser(2);
+
         Question q1 = new Question();
         q1.setSubject("sbb가 무엇인가요?");
         q1.setContent("sbb에 대해서 알고 싶습니다.");
         q1.setCreateDate(LocalDateTime.now());
+        q1.setAuthor(author);
         this.questionRepository.save(q1);  // 저장
     }
 
@@ -153,11 +160,14 @@ class SbbApplicationTests {
         assertTrue(oq.isPresent());
         Question q = oq.get();
 
+        SiteUser author = userService.getUser(2);
+
         // 답변 생성하기
         Answer a1 = new Answer();
         a1.setContent("네 자동으로 생성됩니다.");
         a1.setCreateDate(LocalDateTime.now());
         a1.setQuestion(q);
+        a1.setAuthor(author);
         answerRepository.save(a1);  // 저장
     }
 
@@ -188,10 +198,12 @@ class SbbApplicationTests {
 
     @Test
     void testPageMake() {
+        SiteUser author = userService.getUser(2);
+
         for (int i = 1; i <= 300; i++) {
             String subject = String.format("테스트 데이터입니다:[%03d]", i);
             String content = "내용 : %d".formatted((int) (Math.random() * 100));
-            questionService.create(subject, content);
+            questionService.create(subject, content, author);
         }
     }
 
