@@ -22,6 +22,7 @@ CREATE TABLE answer (
 
 SELECT * FROM answer;
 
+DROP TABLE site_user;
 ## 회원 테이블 생성
 CREATE TABLE site_user (
     id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -58,3 +59,9 @@ SET author_id = 1;
 
 # 답변 테이블에 author_id 칼럼 추가
 ALTER TABLE answer ADD COLUMN author_id BIGINT UNSIGNED NOT NULL;
+
+# 질문 테이블에 modify_date 칼럼 추가
+ALTER TABLE question ADD COLUMN modify_date DATETIME AFTER create_date;
+
+# 답변 테이블에 modify_date 칼럼 추가
+ALTER TABLE answer ADD COLUMN modify_date DATETIME AFTER create_date;

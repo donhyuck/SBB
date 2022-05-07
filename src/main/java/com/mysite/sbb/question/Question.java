@@ -18,6 +18,7 @@ public class Question {
     private Integer id;
 
     private LocalDateTime createDate;
+    private LocalDateTime modifyDate;
 
     @Column(length = 200)
     private String subject;
