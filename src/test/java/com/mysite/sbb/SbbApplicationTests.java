@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +35,8 @@ class SbbApplicationTests {
     private UserService userService;
 
     @Test
-    void testCreateQuestion() {
-        SiteUser author = userService.getUser(2);
+    void testCreateQuestion(Principal principal) {
+        SiteUser author = userService.getUser(principal.getName());
 
         // 첫번째 질문
         Question q1 = new Question();

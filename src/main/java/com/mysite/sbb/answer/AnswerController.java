@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/answer")
@@ -28,7 +29,7 @@ public class AnswerController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping(value = "/create/{id}")
-    public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm, BindingResult bindingResult) {
+    public String createAnswer(Model model, @PathVariable("id") Integer id, @Valid AnswerForm answerForm, BindingResult bindingResult, Principal principal) {
 
         Question question = questionService.getQuestion(id);
 
@@ -37,7 +38,7 @@ public class AnswerController {
             return "question_detail";
         }
 
-        SiteUser author = userService.getUser(2); // 임시
+        SiteUser author = userService.getUser(principal.getName());
 
         answerService.create(question, answerForm.getContent(), author);
         return "redirect:/question/detail/%d".formatted(id);

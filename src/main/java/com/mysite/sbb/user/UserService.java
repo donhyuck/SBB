@@ -33,4 +33,14 @@ public class UserService {
             throw new DataNotFoundException("siteUser not found");
         }
     }
+
+    public SiteUser getUser(String username) {
+        Optional<SiteUser> siteUser = userRepository.findByUsername(username);
+
+        if (siteUser.isPresent()) {
+            return siteUser.get();
+        } else {
+            throw new DataNotFoundException("siteUser not found");
+        }
+    }
 }
