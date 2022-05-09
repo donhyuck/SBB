@@ -19,9 +19,8 @@
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
                    th:text="수정"></a>
 
-                <a href="javascript:void(0);" th:data-uri="@{|/question/delete/${question.id}|}"
-                   class="delete btn btn-sm btn-outline-secondary"
-                   sec:authorize="isAuthenticated()"
+                <a class="delete btn btn-sm btn-outline-secondary" href="javascript:void(0);"
+                   sec:authorize="isAuthenticated()" th:data-uri="@{|/question/delete/${question.id}|}"
                    th:if="${question.author != null and #authentication.getPrincipal().getUsername() == question.author.username}"
                    th:text="삭제"></a>
             </div>
@@ -41,6 +40,12 @@
                     </div>
                     <div th:text="${#temporals.format(answer.createDate, 'yyyy-MM-dd HH:mm')}"></div>
                 </div>
+            </div>
+            <div class="my-3">
+                <a class="btn btn-sm btn-outline-secondary" th:href="@{|/answer/modify/${answer.id}|}"
+                   sec:authorize="isAuthenticated()"
+                   th:if="${answer.author != null and #authentication.getPrincipal().getUsername() == answer.author.username}"
+                   th:text="수정"></a>
             </div>
         </div>
     </div>
@@ -67,6 +72,9 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+
+
+
 
 </script>
 
