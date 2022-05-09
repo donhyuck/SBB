@@ -88,3 +88,17 @@ SET create_date = NOW(),
 content = '네, 자동으로 생성됩니다.',
 question_id = 2,
 author_id = 2;
+
+# 질문추천인 테이블 추가
+CREATE TABLE question_voter (
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    question_id BIGINT UNSIGNED NOT NULL,
+    voter_id BIGINT UNSIGNED NOT NULL
+);
+
+# 답변추천인 테이블 추가
+CREATE TABLE answer_voter (
+    id BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    answer_id BIGINT UNSIGNED NOT NULL,
+    voter_id BIGINT UNSIGNED NOT NULL
+);
