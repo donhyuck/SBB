@@ -90,7 +90,7 @@ public class QuestionController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
         questionService.modify(question, questionForm.getSubject(), questionForm.getContent());
-        return String.format("redirect:/question/detail/%s", id);
+        return "redirect:/question/detail/%d".formatted(id);
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -115,6 +115,6 @@ public class QuestionController {
         SiteUser siteUser = userService.getUser(principal.getName());
 
         questionService.vote(question, siteUser);
-        return String.format("redirect:/question/detail/%s", id);
+        return "redirect:/question/detail/%d".formatted(id);
     }
 }
